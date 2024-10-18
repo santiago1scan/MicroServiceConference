@@ -3,15 +3,23 @@ package co.edu.unicauca.microserviceconference.domain.model;
 import java.util.Date;
 
 public class Conference {
-    private int id;
+    private String id;
     private String place;
     private String basicInfo;
     private String topics;
     private Date date;
-    private User user;
+    private Author author;
+    private Organizer organizer;
     private Article article;
-    public Conference() {
-
+    public Conference(String id, String place, String basicInfo, String topics, Date date, Author author, Organizer organizer, Article article) {
+        this.id = id;
+        this.place = place;
+        this.basicInfo = basicInfo;
+        this.topics = topics;
+        this.date = date;
+        this.author = author;
+        this.organizer = organizer;
+        this.article = article;
     }
 
     public String getPlace() {
@@ -30,15 +38,19 @@ public class Conference {
         return date;
     }
 
-    public User getUser() {
-        return user;
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Organizer getOrganizer() {
+        return organizer;
     }
 
     public Article getArticle() {
         return article;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -46,8 +58,8 @@ public class Conference {
         this.article = article;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Author author) {
+        this.author = author;
     }
 
     public void setDate(Date date) {
@@ -66,7 +78,15 @@ public class Conference {
         this.place = place;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public void setOrganizer(Organizer organizer) {
+        this.organizer = organizer;
     }
 }
