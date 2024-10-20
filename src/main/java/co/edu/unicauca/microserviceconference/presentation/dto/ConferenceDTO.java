@@ -1,6 +1,9 @@
 package co.edu.unicauca.microserviceconference.presentation.dto;
 
 
+import co.edu.unicauca.microserviceconference.domain.model.Article;
+import co.edu.unicauca.microserviceconference.domain.model.Author;
+import co.edu.unicauca.microserviceconference.domain.model.Organizer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +18,7 @@ public class ConferenceDTO {
     private String basicInfo;
     private String topics;
     private Date date;
-    private AuthorDTO author;
-    private OrganizerDTO organizer;
-    private ArticleDTO article;
+    private Author author;
+    private Organizer organizer;
+    private Article article;
 }

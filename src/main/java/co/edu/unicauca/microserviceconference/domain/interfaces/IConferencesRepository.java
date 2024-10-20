@@ -10,7 +10,7 @@ import java.util.List;
 public interface IConferencesRepository {
     Conference saveConference(Conference conference);
     Conference findById(String id);
-    Conference updateConference(Conference conference, int id);
+    Conference updateConference(Conference conference, String id);
     Conference deleteById(String id);
 
 }
