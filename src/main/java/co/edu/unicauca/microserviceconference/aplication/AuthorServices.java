@@ -5,24 +5,6 @@ import co.edu.unicauca.microserviceconference.domain.model.Author;
 
 import java.util.List;
 
-public class AuthorServices implements IAuthorRepository {
-    @Override
-    public Author findById(int id) {
-        return null;
-    }
+public class AuthorServices {
 
-    @Override
-    public List<Author> findAllAuthors() {
-        return List.of();
-    }
-
-    @Override
-    public Author saveAuthor(Author author) {
-        return null;
-    }
-
-    @Override
-    public Author deleteAuthor(Author author) {
-        return null;
-    }
 }
