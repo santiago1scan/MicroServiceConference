@@ -62,7 +62,7 @@ public class ConferenceService {
      * @param conferenceToUpdate new conference for update
      * @return conference updated or null
      */
-    public Conference updateConference(String conferenceId,ConferenceDTO conferenceToUpdate){
+    public ConferenceDTO updateConference(String conferenceId,ConferenceDTO conferenceToUpdate){
         if(conferenceId == null){
             return null;
         }
@@ -73,7 +73,7 @@ public class ConferenceService {
         Conference confernceEntity = this.repository.updateConference( confernceEntityToUpdate, conferenceId);
         if( conferenceToUpdate != null){
             //TODO notify the broker
-            return this.modelMapper.map(confernceEntity, Conference.class);
+            return this.modelMapper.map(confernceEntity, ConferenceDTO.class);
         }else {
             return null;
         }
