@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ConferenceService {
-    @Autowired
-    private IConferencesRepository repository;
 
-    @Autowired
+    private IConferencesRepository repository;
     private ModelMapper modelMapper;
 
     @Autowired
@@ -23,7 +21,7 @@ public class ConferenceService {
 
     /**
      *
-     * @param conferenceToSave
+     * @param conferenceToSave conference for save in repository
      * @return conferenceDTO to save or null
      */
     public ConferenceDTO save(ConferenceDTO conferenceToSave){
@@ -39,8 +37,8 @@ public class ConferenceService {
 
     /**
      *
-     * @param conferenceId
-     * @return conference sheare or null
+     * @param conferenceId id to find in repository
+     * @return conferenceDTO find or null
      */
     public ConferenceDTO findConferenceById(String conferenceId){
         if(conferenceId == null){
@@ -81,7 +79,7 @@ public class ConferenceService {
 
     /**
      *
-     * @param conferenceId
+     * @param conferenceId id to find in repository
      * @return conference eliminated or null
      */
     public ConferenceDTO deleteConference(String conferenceId){
