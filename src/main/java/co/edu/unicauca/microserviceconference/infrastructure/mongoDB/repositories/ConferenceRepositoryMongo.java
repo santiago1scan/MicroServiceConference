@@ -17,7 +17,7 @@ public class ConferenceRepositoryMongo implements IConferencesRepository {
     }
 
     @Override
-    public Conference updateConference(Conference conference, int id) {
+    public Conference updateConference(Conference conference, String id) {
         return null;
     }
 
