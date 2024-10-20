@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface IConferencesRepository {
     Conference saveConference(Conference conference);
-    Conference findById(int id);
+    Conference findById(String id);
     Conference updateConference(Conference conference, int id);
-    Conference deleteById(int id);
+    Conference deleteById(String id);
 
 }

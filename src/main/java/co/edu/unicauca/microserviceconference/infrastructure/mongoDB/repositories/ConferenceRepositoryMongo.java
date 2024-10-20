@@ -12,7 +12,7 @@ public class ConferenceRepositoryMongo implements IConferencesRepository {
     }
 
     @Override
-    public Conference findById(int id) {
+    public Conference findById(String id) {
         return null;
     }
 
@@ -22,7 +22,7 @@ public class ConferenceRepositoryMongo implements IConferencesRepository {
     }
 
     @Override
-    public Conference deleteById(int id) {
+    public Conference deleteById(String id) {
         return null;
     }
 }
