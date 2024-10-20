@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AuthorRpositoryMongo implements IAuthorRepository {
     @Override
-    public Author findById(int id) {
+    public Author findById(String id) {
         return null;
     }
 
