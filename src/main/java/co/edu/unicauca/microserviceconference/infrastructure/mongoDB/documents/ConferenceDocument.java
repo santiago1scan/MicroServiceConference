@@ -20,4 +20,5 @@ public class ConferenceDocument {
     private String topic;
     private String idOrganizer;
     private String description;
+    private boolean isActive;
 }
