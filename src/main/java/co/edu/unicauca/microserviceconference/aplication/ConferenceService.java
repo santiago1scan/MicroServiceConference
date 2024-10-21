@@ -2,7 +2,9 @@ package co.edu.unicauca.microserviceconference.aplication;
 
 import co.edu.unicauca.microserviceconference.domain.interfaces.IConferencesRepository;
 import co.edu.unicauca.microserviceconference.domain.model.Conference;
+import co.edu.unicauca.microserviceconference.infrastructure.dtro.ConferenceDTRO;
 import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
+import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +28,12 @@ public class ConferenceService {
      * @param conferenceToSave conference for save in repository
      * @return conferenceDTO to save or null
      */
-    public ConferenceInDTO save(ConferenceInDTO conferenceToSave){
+    public ConferenceOutDTO save(ConferenceInDTO conferenceToSave){
         Conference conferenceEntity = this.modelMapper.map(conferenceToSave, Conference.class);
-        Conference conferenceSave =this.repository.saveConference(conferenceEntity);
+        ConferenceDTRO conferenceSave =this.repository.saveConference(conferenceEntity);
         if( conferenceSave != null){
             //TODO notify the broker
-            return this.modelMapper.map(conferenceSave, ConferenceInDTO.class);
+            return this.modelMapper.map(conferenceSave, ConferenceOutDTO.class);
         }else {
             return null;
         }
@@ -42,14 +44,14 @@ public class ConferenceService {
      * @param conferenceId id to find in repository
      * @return conferenceDTO find or null
      */
-    public ConferenceInDTO findConferenceById(String conferenceId){
+    public ConferenceOutDTO findConferenceById(String conferenceId){
         if(conferenceId == null){
             return null;
         }
-        Conference conferenceSave =this.repository.findById(conferenceId);
+        ConferenceDTRO conferenceSave =this.repository.findById(conferenceId);
         if( conferenceSave != null){
             //TODO notify the broker
-            return this.modelMapper.map(conferenceSave, ConferenceInDTO.class);
+            return this.modelMapper.map(conferenceSave, ConferenceOutDTO.class);
         }else {
             return null;
         }
@@ -62,7 +64,7 @@ public class ConferenceService {
      * @param conferenceToUpdate new conference for update
      * @return conference updated or null
      */
-    public ConferenceInDTO updateConference(String conferenceId, ConferenceInDTO conferenceToUpdate){
+    public ConferenceOutDTO updateConference(String conferenceId, ConferenceInDTO conferenceToUpdate){
         if(conferenceId == null){
             return null;
         }
@@ -70,10 +72,10 @@ public class ConferenceService {
             return null;
         }
         Conference confernceEntityToUpdate = this.modelMapper.map(conferenceToUpdate, Conference.class);
-        Conference confernceEntity = this.repository.updateConference( confernceEntityToUpdate, conferenceId);
+        ConferenceDTRO confernceEntity = this.repository.updateConference( confernceEntityToUpdate, conferenceId);
         if( conferenceToUpdate != null){
             //TODO notify the broker
-            return this.modelMapper.map(confernceEntity, ConferenceInDTO.class);
+            return this.modelMapper.map(confernceEntity, ConferenceOutDTO.class);
         }else {
             return null;
         }
@@ -84,14 +86,14 @@ public class ConferenceService {
      * @param conferenceId id to find in repository
      * @return conference eliminated or null
      */
-    public ConferenceInDTO deleteConference(String conferenceId){
+    public ConferenceOutDTO deleteConference(String conferenceId){
         if(conferenceId == null){
             return null;
         }
-        Conference conferenceSave =this.repository.deleteById(conferenceId);
+        ConferenceDTRO conferenceSave =this.repository.deleteById(conferenceId);
         if( conferenceSave != null){
             //TODO notify the broker
-            return this.modelMapper.map(conferenceSave, ConferenceInDTO.class);
+            return this.modelMapper.map(conferenceSave, ConferenceOutDTO.class);
         }else {
             return null;
         }

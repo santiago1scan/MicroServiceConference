@@ -3,6 +3,7 @@ package co.edu.unicauca.microserviceconference.presentation.controlleres;
 
 import co.edu.unicauca.microserviceconference.aplication.ConferenceService;
 import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
+import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class ConferenceController {
                     .body("Organizer is required");
 
 
-        ConferenceInDTO createdUser = conferenceService.save(conferenceDTO);
+        ConferenceOutDTO   createdUser = conferenceService.save(conferenceDTO);
         if(createdUser == null)
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -46,21 +47,21 @@ public class ConferenceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
     @GetMapping
-    public ConferenceInDTO findConerenceById(@PathVariable String id) {
+    public ConferenceOutDTO findConerenceById(@PathVariable String id) {
         if (id.isEmpty())
             return null;
-        ConferenceInDTO conferenceDTO = conferenceService.findConferenceById(id);
+        ConferenceOutDTO conferenceDTO = conferenceService.findConferenceById(id);
         return conferenceDTO;
     }
     @PutMapping
-    public ConferenceInDTO updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
+    public ConferenceOutDTO updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceService.findConferenceById(id)  == null)
             return null;
-        ConferenceInDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
+        ConferenceOutDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
         return conferenceUpdateDTO;
     }
     @DeleteMapping
-    public ConferenceInDTO deleteConference(@PathVariable String id) {
+    public ConferenceOutDTO deleteConference(@PathVariable String id) {
         if(conferenceService.findConferenceById(id)  == null)
             return null;
         return  conferenceService.deleteConference(id);
