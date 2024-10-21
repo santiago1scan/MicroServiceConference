@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
-public class AuthorDTO {
-    private String id;
-    private String name;
-    private String email;
+public class BasicDateDTO {
+    private int day;
+    private int month;
+    private int year;
+    public BasicDateDTO() {}
 }

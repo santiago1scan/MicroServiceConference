@@ -1,4 +1,4 @@
-package co.edu.unicauca.microserviceconference.presentation;
+package co.edu.unicauca.microserviceconference;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

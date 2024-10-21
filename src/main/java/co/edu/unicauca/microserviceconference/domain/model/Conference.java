@@ -1,92 +1,86 @@
 package co.edu.unicauca.microserviceconference.domain.model;
 
-import java.util.Date;
-
 public class Conference {
     private String id;
+    private String name;
+    private BasicDate startDate;
+    private BasicDate finishDate;
     private String place;
-    private String basicInfo;
-    private String topics;
-    private Date date;
-    private Author author;
+    private String topic;
     private Organizer organizer;
-    private Article article;
-    public Conference(String id, String place, String basicInfo, String topics, Date date, Author author, Organizer organizer, Article article) {
-        this.id = id;
+    private String description;
+
+    public Conference(String name, BasicDate startDate, BasicDate finishDate, String place, String topic, Organizer organizer, String description) {
+        this.name = name;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
         this.place = place;
-        this.basicInfo = basicInfo;
-        this.topics = topics;
-        this.date = date;
-        this.author = author;
+        this.topic = topic;
         this.organizer = organizer;
-        this.article = article;
+        this.description = description;
     }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public String getBasicInfo() {
-        return basicInfo;
-    }
-
-    public String getTopics() {
-        return topics;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public Organizer getOrganizer() {
-        return organizer;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-    public void setUser(Author author) {
-        this.author = author;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setTopics(String topics) {
-        this.topics = topics;
-    }
-
-    public void setBasicInfo(String basicInfo) {
-        this.basicInfo = basicInfo;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BasicDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(BasicDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public BasicDate getFinishDate() {
+        return finishDate;
+    }
+
+    public void setFinishDate(BasicDate finishDate) {
+        this.finishDate = finishDate;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public Organizer getOrganizer() {
+        return organizer;
     }
 
     public void setOrganizer(Organizer organizer) {
         this.organizer = organizer;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
