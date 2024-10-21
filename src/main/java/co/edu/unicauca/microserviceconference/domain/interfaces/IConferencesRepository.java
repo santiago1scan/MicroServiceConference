@@ -2,15 +2,17 @@ package co.edu.unicauca.microserviceconference.domain.interfaces;
 
 import co.edu.unicauca.microserviceconference.domain.model.Article;
 import co.edu.unicauca.microserviceconference.domain.model.Conference;
+import co.edu.unicauca.microserviceconference.infrastructure.dtro.ConferenceDTRO;
+import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
 import org.springframework.boot.autoconfigure.jms.artemis.ArtemisNoOpBindingRegistry;
 
 import java.util.List;
 
 
 public interface IConferencesRepository {
-    Conference saveConference(Conference conference);
-    Conference findById(String id);
-    Conference updateConference(Conference conference, String id);
-    Conference deleteById(String id);
+    ConferenceDTRO saveConference(Conference conference);
+    ConferenceDTRO findById(String id);
+    ConferenceDTRO updateConference(Conference conference, String id);
+    ConferenceDTRO deleteById(String id);
 
 }
