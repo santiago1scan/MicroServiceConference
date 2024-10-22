@@ -61,12 +61,12 @@ public class ConferenceController {
         ConferenceOutDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
         return ResponseEntity.status(HttpStatus.OK).body(conferenceUpdateDTO);
     }
-    @DeleteMapping("/conference/id/{id}")
+    @DeleteMapping("/conference/{id}")
     public ResponseEntity<ConferenceOutDTO> deleteConference(@PathVariable String id) {
         if(conferenceService.findConferenceById(id)  == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.status(HttpStatus.OK).body(conferenceService.deleteConference(id));
     }
 
-//Gracias a beyonce
+
 }
