@@ -4,6 +4,7 @@ package co.edu.unicauca.microserviceconference.presentation.controlleres;
 import co.edu.unicauca.microserviceconference.aplication.ConferenceService;
 import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
 import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,24 +48,24 @@ public class ConferenceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
     @GetMapping()
-    public ConferenceOutDTO findConerenceById(@PathVariable String id) {
+    public ResponseEntity<ConferenceOutDTO> findConerenceById(@PathVariable String id) {
         if (id.isEmpty())
-            return null;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         ConferenceOutDTO conferenceDTO = conferenceService.findConferenceById(id);
-        return conferenceDTO;
+        return ResponseEntity.status(HttpStatus.OK).body(conferenceDTO);
     }
-    @PutMapping("/conference/id/{id}")
-    public ConferenceOutDTO updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
+    @PutMapping("/conference/{id}")
+    public ResponseEntity<ConferenceOutDTO> updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceService.findConferenceById(id)  == null)
-            return null;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         ConferenceOutDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
-        return conferenceUpdateDTO;
+        return ResponseEntity.status(HttpStatus.OK).body(conferenceUpdateDTO);
     }
     @DeleteMapping("/conference/id/{id}")
-    public ConferenceOutDTO deleteConference(@PathVariable String id) {
+    public ResponseEntity<ConferenceOutDTO> deleteConference(@PathVariable String id) {
         if(conferenceService.findConferenceById(id)  == null)
-            return null;
-        return  conferenceService.deleteConference(id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).body(conferenceService.deleteConference(id));
     }
 
 
