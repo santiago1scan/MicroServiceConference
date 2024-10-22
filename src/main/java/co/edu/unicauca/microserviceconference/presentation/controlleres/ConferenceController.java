@@ -68,5 +68,5 @@ public class ConferenceController {
         return ResponseEntity.status(HttpStatus.OK).body(conferenceService.deleteConference(id));
     }
 
-
+//Gracias a beyonce
 }
