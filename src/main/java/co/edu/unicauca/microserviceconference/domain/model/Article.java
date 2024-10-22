@@ -3,18 +3,20 @@ package co.edu.unicauca.microserviceconference.domain.model;
 import jakarta.websocket.RemoteEndpoint;
 
 public class Article {
+    private String id;
     private String name;
     private String idAuthor;
     private String keywords;
     private BasicDate publicationDate;
     private Conference conference;
 
+    public String getId() {return id;}
     public String getName() {return name;}
     public String getIdAuthor() {return idAuthor;}
     public Conference getConference() {return conference;}
     public String getKeywords() {return keywords;}
 
-
+    public void setId(String id) {this.id = id;}
     public BasicDate getPublicationDate() {return publicationDate;}
     public void setName(String name) {this.name = name;}
     public void setIdAuthor(String idAuthor) {this.idAuthor = idAuthor;}
@@ -25,7 +27,7 @@ public class Article {
         this.conference = conference;
     }
 
-    public Article(String name, String idAuthor, String keywords, BasicDate publicationDate) {
+    public Article(String id, String name, String idAuthor, String keywords, BasicDate publicationDate) {
         this.name = name;
         this.idAuthor = idAuthor;
         this.keywords = keywords;

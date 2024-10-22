@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ArticleDTO {
+    private String id;
     private String name;
     private String idAuthor;
     private String keywords;

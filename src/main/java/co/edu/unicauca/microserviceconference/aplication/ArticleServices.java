@@ -2,6 +2,7 @@ package co.edu.unicauca.microserviceconference.aplication;
 
 import co.edu.unicauca.microserviceconference.domain.interfaces.IArticleRepository;
 import co.edu.unicauca.microserviceconference.domain.model.Article;
+import co.edu.unicauca.microserviceconference.infrastructure.dtro.ArticleDTRO;
 import co.edu.unicauca.microserviceconference.presentation.dto.ArticleDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ArticleServices{
         if(id.equals("") || id == null){
             return null;
         }
-        Article articleEntity = this.repository.findArticleById(id);
+        ArticleDTRO articleEntity = this.repository.findArticleById(id);
         if(articleEntity != null){
             return this.modelMapper.map(articleEntity, ArticleDTO.class);
         }
