@@ -20,4 +20,6 @@ public class ConferenceOutDTO {
     private Organizer organizer;
     private String description;
 
+    public ConferenceOutDTO() {}
+
 }
