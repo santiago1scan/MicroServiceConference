@@ -10,12 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/conference")
+@RequestMapping("/api")
 public class ConferenceController {
     @Autowired
     private ConferenceService conferenceService;
 
-    @PostMapping
+    @PostMapping("/conference")
     public ResponseEntity<Object> createConference(@RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceDTO.getStartDate() == null )
             return ResponseEntity
@@ -46,21 +46,21 @@ public class ConferenceController {
                     .body("Sorry, some issue creating user");
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-    @GetMapping
+    @GetMapping()
     public ConferenceOutDTO findConerenceById(@PathVariable String id) {
         if (id.isEmpty())
             return null;
         ConferenceOutDTO conferenceDTO = conferenceService.findConferenceById(id);
         return conferenceDTO;
     }
-    @PutMapping
+    @PutMapping("/conference/id/{id}")
     public ConferenceOutDTO updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceService.findConferenceById(id)  == null)
             return null;
         ConferenceOutDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
         return conferenceUpdateDTO;
     }
-    @DeleteMapping
+    @DeleteMapping("/conference/id/{id}")
     public ConferenceOutDTO deleteConference(@PathVariable String id) {
         if(conferenceService.findConferenceById(id)  == null)
             return null;
