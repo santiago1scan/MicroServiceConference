@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 public class ArticleDocument {
     @Id
+    private String id;
     private String name;
     private String idAuthor;
     private String keywords;

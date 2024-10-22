@@ -6,6 +6,12 @@ public class Author {
     private String email;
     private String password;
 
+    public Author(String id, String name, String email, String password  ) {
+        this.id=id;
+        this.name=name;
+        this.email=email;
+    }
+    public Author(){}
     public String getName() {
         return name;
     }
@@ -38,9 +44,4 @@ public class Author {
         this.password = password;
     }
 
-    public Author(String id, String name, String email, String password  ) {
-        this.id=id;
-        this.name=name;
-        this.email=email;
-    }
 }
