@@ -7,6 +7,7 @@ import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mogoReposit
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.repositories.AuthorRepositoryMongo;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.repositories.OrganizerRepositoryMongo;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,13 @@ public class MessageConsumer {
 
     private AuthorRepositoryMongo mongoRepositoryAuthor;
     private OrganizerRepositoryMongo mongoRepositoryOrganizer;
+
+    // Constructor para inyección de dependencias
+    @Autowired
+    public MessageConsumer(AuthorRepositoryMongo mongoRepositoryAuthor, OrganizerRepositoryMongo mongoRepositoryOrganizer) {
+        this.mongoRepositoryAuthor = mongoRepositoryAuthor;
+        this.mongoRepositoryOrganizer = mongoRepositoryOrganizer;
+    }
 
     @RabbitListener(queues = "users")
     public void receiveMessage(UserDTRO objClienteCreado) {
