@@ -4,9 +4,8 @@ public class Author {
     private String id;
     private String name;
     private String email;
-    private String password;
 
-    public Author(String id, String name, String email, String password  ) {
+    public Author(String id, String name, String email) {
         this.id=id;
         this.name=name;
         this.email=email;
@@ -18,10 +17,6 @@ public class Author {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getId() {
@@ -40,8 +35,5 @@ public class Author {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 }

@@ -15,5 +15,5 @@ public class AuthorDocument {
     private String id;
     private String name;
     private String email;
-    private String password;
+    private boolean isActive;
 }
