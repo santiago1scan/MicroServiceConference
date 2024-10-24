@@ -2,13 +2,13 @@ package co.edu.unicauca.microserviceconference.presentation.controlleres;
 
 
 import co.edu.unicauca.microserviceconference.aplication.ConferenceService;
-import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
-import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
-import org.apache.coyote.Response;
+import co.edu.unicauca.microserviceconference.presentation.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api")
@@ -47,24 +47,33 @@ public class ConferenceController {
                     .body("Sorry, some issue creating user");
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-    @GetMapping()
-    public ResponseEntity<ConferenceOutDTO> findConerenceById(@PathVariable String id) {
-        if (id.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        ConferenceOutDTO conferenceDTO = conferenceService.findConferenceById(id);
+    @GetMapping("/conference")
+    public ResponseEntity<Object> getConference() {
+        ListConferenceOutDTO conferenceDTO = conferenceService.findAllConferencesActive();
         return ResponseEntity.status(HttpStatus.OK).body(conferenceDTO);
     }
+    @GetMapping("/conference/{id}")
+    public ResponseEntity<Object> getConferenceById(@PathVariable String id) {
+        ListConferenceOrganizerOut conferenceReturn = conferenceService.findAllConfereceByIDOrganizer(id);
+        if(conferenceReturn == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("No found confernece");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(conferenceReturn);
+
+    }
     @PutMapping("/conference/{id}")
-    public ResponseEntity<ConferenceOutDTO> updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
+    public ResponseEntity<Object> updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceService.findConferenceById(id)  == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("IdConference is needed");
         ConferenceOutDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
         return ResponseEntity.status(HttpStatus.OK).body(conferenceUpdateDTO);
     }
     @DeleteMapping("/conference/{id}")
-    public ResponseEntity<ConferenceOutDTO> deleteConference(@PathVariable String id) {
+    public ResponseEntity<Object> deleteConference(@PathVariable String id) {
         if(conferenceService.findConferenceById(id)  == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("IdConference is needed");
         return ResponseEntity.status(HttpStatus.OK).body(conferenceService.deleteConference(id));
     }
 

@@ -11,7 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Repository
 public class ConferenceRepositoryMongo implements IConferencesRepository {
@@ -102,4 +107,43 @@ public class ConferenceRepositoryMongo implements IConferencesRepository {
         return ConferenceMapper.toConferenceDTRO(updatedConference);
 
     }
+
+    /**
+     *
+     * @return list ConferenceDRTO just Active
+     */
+    @Override
+    public List<ConferenceDTRO> findAllActive() {
+        // Use MongoTemplate to find all ConferenceDocuments with active flag set to true
+        List<ConferenceDocument> conferenceDocuments = mongoTemplate.find(
+                query(where("isActive").is(true)),  // Build query to filter active conferences
+                ConferenceDocument.class);
+
+        // Convert ConferenceDocuments to ConferenceDTROs using ConferenceMapper
+        List<ConferenceDTRO> conferenceDTROs = conferenceDocuments.stream()
+                .map(ConferenceMapper::toConferenceDTRO)
+                .collect(Collectors.toList());
+
+        return conferenceDTROs;
+    }
+
+    /**
+     *
+     * @return list of conferences DRTO active and no active
+     */
+    @Override
+    public List<ConferenceDTRO> findAll() {
+        // Utiliza MongoTemplate para encontrar todos los ConferenceDocuments
+        List<ConferenceDocument> conferenceDocuments = mongoTemplate.findAll(
+                ConferenceDocument.class);
+
+        // Convierte ConferenceDocuments a ConferenceDTROs usando ConferenceMapper
+        List<ConferenceDTRO> conferenceDTROs = conferenceDocuments.stream()
+                .map(ConferenceMapper::toConferenceDTRO)
+                .collect(Collectors.toList());
+
+        return conferenceDTROs;
+    }
+
+
 }

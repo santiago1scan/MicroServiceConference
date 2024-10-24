@@ -5,9 +5,14 @@ import co.edu.unicauca.microserviceconference.domain.model.Conference;
 import co.edu.unicauca.microserviceconference.infrastructure.dtro.ConferenceDTRO;
 import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
 import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
+import co.edu.unicauca.microserviceconference.presentation.dto.ListConferenceOrganizerOut;
+import co.edu.unicauca.microserviceconference.presentation.dto.ListConferenceOutDTO;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class ConferenceService {
@@ -56,6 +61,35 @@ public class ConferenceService {
             return null;
         }
 
+    }
+
+    /**
+     *
+     * @return ListConferenceDTO list of conference ative
+     */
+    public ListConferenceOutDTO findAllConferencesActive(){
+        ArrayList<ConferenceDTRO> listConferencesActive = (ArrayList<ConferenceDTRO>) this.repository.findAllActive();
+        ListConferenceOutDTO conferencesOutDTO  =  new ListConferenceOutDTO();
+        conferencesOutDTO.setConferences(this.modelMapper.map(listConferencesActive, new TypeToken<ArrayList<ConferenceOutDTO>>(){}.getType()));
+        int countConference = listConferencesActive.size();
+        conferencesOutDTO.setTotalConference(countConference);
+        return conferencesOutDTO;
+    }
+
+    /**
+     *
+     * @param idOrganizer
+     * @return ListConfereneOrganizerOut DTO whit idOrganizaer, totalConference and all conference, active and no active
+     * @Brief funciton return a dto for controller list for organizer
+     */
+    public ListConferenceOrganizerOut findAllConfereceByIDOrganizer(String idOrganizer){
+        ArrayList<ConferenceDTRO> listAllConference = (ArrayList<ConferenceDTRO>) this.repository.findAll();
+        ListConferenceOrganizerOut conferencesOutDTO = new ListConferenceOrganizerOut();
+        conferencesOutDTO.setConferences(this.modelMapper.map(listAllConference, new TypeToken<ArrayList<ConferenceOutDTO>>() {}.getType() )) ;
+        conferencesOutDTO.setIdOrganizer(idOrganizer);
+        int countConference = listAllConference.size();
+        conferencesOutDTO.setTotalConference(countConference);
+        return conferencesOutDTO;
     }
 
     /**
