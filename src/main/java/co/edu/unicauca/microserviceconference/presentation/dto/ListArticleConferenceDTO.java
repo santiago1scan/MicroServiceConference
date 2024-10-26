@@ -1,6 +1,6 @@
 package co.edu.unicauca.microserviceconference.presentation.dto;
 
-import co.edu.unicauca.microserviceconference.domain.model.Conference;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class ListArticleConferenceDTO {
-    private Conference conference;
+    private ConferenceOutDTO conferenceOutDTO;
     private int cantArticles;
     List<ArticleDTO> articles;
+    public ListArticleConferenceDTO() {}
 }

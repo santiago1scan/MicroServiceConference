@@ -42,7 +42,7 @@ public class OrganizerRepositoryMongo implements IOrganizerRepository {
     }
 
     @Override
-    public Organizer findOrganizerById(int id) {
+    public Organizer findOrganizerById(String id) {
         Optional<OrganizerDocument> organizerDocumentOptional = mongoRepositoryOrganizer.findById(String.valueOf(id));
 
         return organizerDocumentOptional.map(OrganizerMapper::toOrganizer).orElse(null);
@@ -50,14 +50,14 @@ public class OrganizerRepositoryMongo implements IOrganizerRepository {
     }
 
     @Override
-    public Organizer deleteOrganizerById(int id) {
-        Optional<OrganizerDocument> organizerDocumentOptional = mongoRepositoryOrganizer.findById(String.valueOf(id));
+    public Organizer deleteOrganizerById(String id) {
+        Optional<OrganizerDocument> organizerDocumentOptional = mongoRepositoryOrganizer.findById(id);
 
         if (organizerDocumentOptional.isEmpty()) {
             return null;
         }
 
-        mongoRepositoryOrganizer.deleteById(String.valueOf(id));
+        mongoRepositoryOrganizer.deleteById(id);
 
         return OrganizerMapper.toOrganizer(organizerDocumentOptional.get());
     }

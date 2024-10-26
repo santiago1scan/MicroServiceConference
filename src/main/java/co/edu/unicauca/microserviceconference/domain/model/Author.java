@@ -15,9 +15,7 @@ public class Author {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() {return email;}
 
     public String getId() {
         return id;

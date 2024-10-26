@@ -8,6 +8,6 @@ import java.util.List;
 public interface IOrganizerRepository {
     Organizer saveOrganizer(Organizer organizer);
     List<Organizer> findAllOrganizers();
-    Organizer findOrganizerById(int id);
-    Organizer deleteOrganizerById(int id);
+    Organizer findOrganizerById(String id);
+    Organizer deleteOrganizerById(String id);
 }
