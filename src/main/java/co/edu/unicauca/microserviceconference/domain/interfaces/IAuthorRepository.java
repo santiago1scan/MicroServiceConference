@@ -8,5 +8,6 @@ public interface IAuthorRepository {
     Author findById(String id);
     List<Author> findAllAuthors();
     Author saveAuthor(Author author);
-    Author deleteAuthor(Author author);
+    Author deleteAuthor(String idAuthor);
+
 }
