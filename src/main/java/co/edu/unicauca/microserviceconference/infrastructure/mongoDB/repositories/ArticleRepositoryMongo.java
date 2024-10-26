@@ -6,6 +6,7 @@ import co.edu.unicauca.microserviceconference.infrastructure.dtro.ArticleDTRO;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.documents.ArticleDocument;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mappers.ArticleMapper;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mogoRepositories.MongoRepositoryArticle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,7 @@ public class ArticleRepositoryMongo implements IArticleRepository {
     private final MongoRepositoryArticle mongoRepositoryArticle;
     private final MongoTemplate mongoTemplate;
 
+    @Autowired
     public ArticleRepositoryMongo(MongoRepositoryArticle mongoRepositoryArticle, MongoTemplate mongoTemplate) {
         this.mongoRepositoryArticle = mongoRepositoryArticle;
         this.mongoTemplate = mongoTemplate;
