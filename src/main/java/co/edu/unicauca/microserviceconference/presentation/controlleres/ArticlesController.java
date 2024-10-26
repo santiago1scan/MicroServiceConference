@@ -27,11 +27,11 @@ public class ArticlesController {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("name Date is needed");
-        if(article.getPublicationDate() == null)
+        if(article.getPublishDate() == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Publish Date is needed");
-        if(article.getKeywords() == null || article.getKeywords().isEmpty())
+        if(article.getKeyWords() == null || article.getKeyWords().isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Keywords is needed");
@@ -78,11 +78,11 @@ public class ArticlesController {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("name Date is needed");
-        if(article.getPublicationDate() == null)
+        if(article.getPublishDate() == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("publishDAte is needed");
-        if(article.getKeywords() == null || article.getKeywords().isEmpty())
+        if(article.getKeyWords() == null || article.getKeyWords().isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Keywords is needed");

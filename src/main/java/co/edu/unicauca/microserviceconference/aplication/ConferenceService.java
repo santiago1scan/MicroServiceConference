@@ -20,12 +20,11 @@ public class ConferenceService {
     @Autowired
     private IConferencesRepository repository;
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     public ConferenceService(IConferencesRepository conferencesRepository) {
         this.repository= conferencesRepository;
-        this.modelMapper = new ModelMapper();
     }
 
     /**

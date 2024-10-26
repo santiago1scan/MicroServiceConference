@@ -4,8 +4,6 @@ import co.edu.unicauca.microserviceconference.domain.model.Article;
 import co.edu.unicauca.microserviceconference.infrastructure.dtro.ArticleDTRO;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.documents.ArticleDocument;
 import co.edu.unicauca.microserviceconference.presentation.dto.ArticleDTO;
-import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
-import org.modelmapper.ModelMapper;
 
 public class ArticleMapper {
     public static Article toArticle(ArticleDTO article) {
@@ -13,8 +11,8 @@ public class ArticleMapper {
                 article.getId(),
                 article.getName(),
                 article.getIdAuthor(),
-                article.getKeywords(),
-                article.getPublicationDate()
+                article.getKeyWords(),
+                article.getPublishDate()
         );
     }
 
@@ -23,8 +21,8 @@ public class ArticleMapper {
                 article.getId(),
                 article.getName(),
                 article.getIdAuthor(),
-                article.getKeywords(),
-                article.getPublicationDate()
+                article.getKeyWords(),
+                article.getPublishDate()
         );
     }
 

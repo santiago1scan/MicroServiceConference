@@ -13,8 +13,8 @@ public class ArticleDTO {
     private String id;
     private String name;
     private String idAuthor;
-    private String keywords;
-    private BasicDate publicationDate;
+    private String keyWords;
+    private BasicDate publishDate;
     private ConferenceOutDTO conference;
     public ArticleDTO() {}
 }

@@ -9,6 +9,7 @@ public interface IArticleRepository {
     ArticleDTRO saveArticle(Article article);
     List<ArticleDTRO> findAllArticles();
     ArticleDTRO findArticleById(String id);
+    List<ArticleDTRO> findAllArticlesByAuthor(String keyword);
     ArticleDTRO deleteArticleById(String id);
     ArticleDTRO updateArticle(Article article, String id );
 }
