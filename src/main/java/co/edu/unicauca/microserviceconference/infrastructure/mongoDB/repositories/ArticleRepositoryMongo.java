@@ -7,6 +7,8 @@ import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.documents.A
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mappers.ArticleMapper;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mogoRepositories.MongoRepositoryArticle;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -81,10 +83,25 @@ public class ArticleRepositoryMongo implements IArticleRepository {
         return ArticleMapper.toArticleDTRO(articleDocument);
     }
 
+    /**
+     * Encuentra y devuelve todos los artículos de un autor específico.
+     *
+     * @param idAuthor El ID del autor cuyos artículos se van a buscar.
+     * @return Una lista de DTOs de los artículos del autor.
+     */
     @Override
     public List<ArticleDTRO> findAllArticlesByAuthor(String idAuthor) {
+        // Crea una consulta para buscar artículos con el idAuthor dado
+        Query query = new Query();
+        query.addCriteria(Criteria.where("idAuthor").is(idAuthor));
 
-        return List.of();
+        // Ejecuta la consulta y obtiene los documentos de artículos
+        List<ArticleDocument> articleDocuments = mongoTemplate.find(query, ArticleDocument.class);
+
+        // Convierte los documentos en una lista de DTOs y los devuelve
+        return articleDocuments.stream()
+                .map(ArticleMapper::toArticleDTRO)
+                .toList();
     }
 
     /**
