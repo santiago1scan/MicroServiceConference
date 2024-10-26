@@ -16,7 +16,7 @@ public class ConferenceController {
     @Autowired
     private ConferenceService conferenceService;
 
-    @PostMapping("/conference")
+    @PostMapping("/conferences")
     public ResponseEntity<Object> createConference(@RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceDTO.getStartDate() == null )
             return ResponseEntity
@@ -47,13 +47,13 @@ public class ConferenceController {
                     .body("Sorry, some issue creating user");
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-    @GetMapping("/conference")
+    @GetMapping("/conferences")
     public ResponseEntity<Object> getConference() {
         ListConferenceOutDTO conferenceDTO = conferenceService.findAllConferencesActive();
         return ResponseEntity.status(HttpStatus.OK).body(conferenceDTO);
     }
-    @GetMapping("/conference/{id}")
-    public ResponseEntity<Object> getConferenceById(@PathVariable String id) {
+    @GetMapping("/conferences/organizer/{id}")
+    public ResponseEntity<Object> getConferenceByIdOrganizer(@PathVariable String id) {
         ListConferenceOrganizerOut conferenceReturn = conferenceService.findAllConfereceByIDOrganizer(id);
         if(conferenceReturn == null){
             return ResponseEntity
@@ -63,14 +63,14 @@ public class ConferenceController {
         return ResponseEntity.status(HttpStatus.OK).body(conferenceReturn);
 
     }
-    @PutMapping("/conference/{id}")
+    @PutMapping("/conferences/{id}")
     public ResponseEntity<Object> updateConference(@PathVariable String id, @RequestBody ConferenceInDTO conferenceDTO) {
         if(conferenceService.findConferenceById(id)  == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("IdConference is needed");
         ConferenceOutDTO conferenceUpdateDTO = conferenceService.updateConference(id, conferenceDTO);
         return ResponseEntity.status(HttpStatus.OK).body(conferenceUpdateDTO);
     }
-    @DeleteMapping("/conference/{id}")
+    @DeleteMapping("/conferences/{id}")
     public ResponseEntity<Object> deleteConference(@PathVariable String id) {
         if(conferenceService.findConferenceById(id)  == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("IdConference is needed");

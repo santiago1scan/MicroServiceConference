@@ -6,7 +6,6 @@ import co.edu.unicauca.microserviceconference.infrastructure.dtro.ArticleDTRO;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.documents.ArticleDocument;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mappers.ArticleMapper;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mogoRepositories.MongoRepositoryArticle;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -82,6 +81,12 @@ public class ArticleRepositoryMongo implements IArticleRepository {
         return ArticleMapper.toArticleDTRO(articleDocument);
     }
 
+    @Override
+    public List<ArticleDTRO> findAllArticlesByAuthor(String idAuthor) {
+
+        return List.of();
+    }
+
     /**
      * Elimina un artículo por su ID y devuelve el DTO del artículo eliminado.
      *
@@ -124,11 +129,11 @@ public class ArticleRepositoryMongo implements IArticleRepository {
         if (article.getIdAuthor() != null && !article.getIdAuthor().isEmpty()) {
             articleDocument.setIdAuthor(article.getIdAuthor());
         }
-        if (article.getKeywords() != null && !article.getKeywords().isEmpty()) {
-            articleDocument.setKeywords(article.getKeywords());
+        if (article.getKeyWords() != null && !article.getKeyWords().isEmpty()) {
+            articleDocument.setKeywords(article.getKeyWords());
         }
-        if (article.getPublicationDate() != null) {
-            articleDocument.setPublicationDate(article.getPublicationDate());
+        if (article.getPublishDate() != null) {
+            articleDocument.setPublicationDate(article.getPublishDate());
         }
 
         // Guarda el artículo actualizado

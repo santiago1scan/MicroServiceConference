@@ -20,12 +20,11 @@ public class ConferenceService {
     @Autowired
     private IConferencesRepository repository;
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     public ConferenceService(IConferencesRepository conferencesRepository) {
         this.repository= conferencesRepository;
-        this.modelMapper = new ModelMapper();
     }
 
     /**
@@ -70,7 +69,7 @@ public class ConferenceService {
     public ListConferenceOutDTO findAllConferencesActive(){
         ArrayList<ConferenceDTRO> listConferencesActive = (ArrayList<ConferenceDTRO>) this.repository.findAllActive();
         ListConferenceOutDTO conferencesOutDTO  =  new ListConferenceOutDTO();
-        conferencesOutDTO.setConferences(this.modelMapper.map(listConferencesActive, new TypeToken<ArrayList<ConferenceInDTO>>(){}.getType()));
+        conferencesOutDTO.setConferences(this.modelMapper.map(listConferencesActive, new TypeToken<ArrayList<ConferenceOutDTO>>(){}.getType()));
         int countConference = listConferencesActive.size();
         conferencesOutDTO.setTotalConference(countConference);
         return conferencesOutDTO;
