@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticlesController {
     @Autowired
     private ArticleServices serviceArticles;
+    @Autowired
     private ConferenceService serviceConference;
     @Autowired
     private ModelMapper modelMapper;
@@ -39,6 +40,11 @@ public class ArticlesController {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("not found conference, is nedeed");
+        if(serviceArticles.exist("")!= null)  //CHECAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("The article already exists in this conference");
+
         ArticleDTO articleToSave = serviceArticles.save(article);
         if(articleToSave == null)
             return ResponseEntity
@@ -48,18 +54,18 @@ public class ArticlesController {
     }
 
 
-    @GetMapping("/conferences/{idConference}")
-    public ResponseEntity<Object> listArticlesConference(@PathVariable String idConferenceToFind) {
-        if(serviceConference.findConferenceById(idConferenceToFind) == null)
+    @GetMapping("conferences/{idConference}")
+    public ResponseEntity<Object> listArticlesConference(@PathVariable String idConference) {
+        if(serviceConference.findConferenceById(idConference) == null)
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Sorry, the id is not found");
-        return  ResponseEntity.status(HttpStatus.OK).body(serviceArticles.findArticleByConference(idConferenceToFind));
+        return  ResponseEntity.status(HttpStatus.OK).body(serviceArticles.findArticleByConference(idConference));
     }
 
 
-    @GetMapping("author/{idAuthor}")
-    public ResponseEntity<Object> getArticleByIdAuthor(@RequestParam String id) {
+    @GetMapping("author/{id}")
+    public ResponseEntity<Object> getArticleByIdAuthor(@PathVariable String id) {
         if(id.isEmpty())
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -75,13 +81,22 @@ public class ArticlesController {
         if(article.getPublicationDate() == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Finish Date is needed");
+                    .body("publishDAte is needed");
         if(article.getKeywords() == null || article.getKeywords().isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Keywords is needed");
         ArticleDTO articleToSave = serviceArticles.update(idArticle, article);
         return ResponseEntity.status(HttpStatus.OK).body(articleToSave);
+    }
+    @DeleteMapping("{idArticle}")
+    public ResponseEntity<Object> deleteArticle(@PathVariable String idArticle) {
+        if(idArticle.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("id is needed");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(serviceArticles.delete(idArticle));
     }
 
 }
