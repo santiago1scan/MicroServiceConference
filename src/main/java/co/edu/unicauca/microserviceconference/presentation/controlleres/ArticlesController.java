@@ -3,8 +3,9 @@ package co.edu.unicauca.microserviceconference.presentation.controlleres;
 import co.edu.unicauca.microserviceconference.aplication.ArticleServices;
 import co.edu.unicauca.microserviceconference.aplication.ConferenceService;
 import co.edu.unicauca.microserviceconference.presentation.dto.ArticleDTO;
-import co.edu.unicauca.microserviceconference.presentation.dto.ListArticleAuthorDTO;
-import lombok.Getter;
+
+import co.edu.unicauca.microserviceconference.presentation.dto.ArticleOutDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ public class ArticlesController {
     @Autowired
     private ArticleServices serviceArticles;
     private ConferenceService serviceConference;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PostMapping("conference/{idConference}")
     public ResponseEntity<Object> createArticleInConference(@RequestBody ArticleDTO article) {
@@ -41,7 +44,7 @@ public class ArticlesController {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Sorry, some issue creating user");
-        return ResponseEntity.status(HttpStatus.CREATED).body(articleToSave);
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(articleToSave, ArticleOutDTO.class));
     }
 
 
