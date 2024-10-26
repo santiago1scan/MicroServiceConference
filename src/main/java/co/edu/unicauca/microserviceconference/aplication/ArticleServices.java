@@ -40,7 +40,6 @@ public class ArticleServices{
      * @return artiticleDTO save or Null
      */
     public ArticleDTO save(ArticleDTO articleDTO) {
-        //if(articleDTO.getIdAuthor().equals()) Validar Author
         Article article= modelMapper.map(articleDTO, Article.class);
         this.repository.saveArticle(article);
         return  modelMapper.map(article, ArticleDTO.class);
@@ -121,9 +120,33 @@ public class ArticleServices{
     public ArticleDTO delete(String id) {
         if(repository.findArticleById(id) == null)
             return null;
-        repository.deleteArticleById(id);
         ArticleDTRO deleteArticle = repository.findArticleById(id);
+        repository.deleteArticleById(id);
+        if(repository.findArticleById(id) != null)
+            return null;
         return modelMapper.map(deleteArticle, ArticleDTO.class);
+    }
+
+
+    /**
+     * @breif verificade to the artichle exist
+     * @param id Article id to elimanted
+     * @return  false true
+     */
+    public ArticleDTO exist(String id) {
+        ArticleDTO vacio = null;
+        if(this.repository.findArticleById(id) == null){
+            return vacio;
+        }
+        ListArticleConferenceDTO listConferenceArticle = this.findArticleByConference(id);
+        ArrayList<ArticleDTO> listArticles = modelMapper.map(listConferenceArticle.getArticles(), new TypeToken<List<ArticleDTO>>(){}.getType()) ;
+        for(int i = 0; i < listArticles.size(); i++){
+            if(listArticles.get(i).getId().equals(id)){
+                return listArticles.get(i);
+            }
+        }
+
+        return vacio;
     }
 
 }
