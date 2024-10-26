@@ -15,5 +15,6 @@ public class ArticleDTO {
     private String idAuthor;
     private String keywords;
     private BasicDate publicationDate;
-    private ConferenceInDTO conference;
+    private ConferenceOutDTO conference;
+    public ArticleDTO() {}
 }

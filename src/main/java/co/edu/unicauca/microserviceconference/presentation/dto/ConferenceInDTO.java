@@ -18,5 +18,6 @@ public class ConferenceInDTO {
     private String topic;
     private String idOrganizer;
     private String description;
+    public ConferenceInDTO() {}
 
 }

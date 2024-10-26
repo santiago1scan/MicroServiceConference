@@ -21,7 +21,7 @@ public class ArticlesController {
     private ModelMapper modelMapper;
 
     @PostMapping("conference/{idConference}")
-    public ResponseEntity<Object> createArticleInConference(@RequestBody ArticleDTO article) {
+    public ResponseEntity<Object> createArticleInConference(@RequestBody ArticleDTO article, @PathVariable String idConference) {
         if(article.getName().isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -29,13 +29,13 @@ public class ArticlesController {
         if(article.getPublicationDate() == null)
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
-                    .body("Finish Date is needed");
+                    .body("Publish Date is needed");
         if(article.getKeywords() == null || article.getKeywords().isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Keywords is needed");
-        String idExist = article.getConference().getIdOrganizer();
-        if(article.getConference() == null || serviceConference.findConferenceById(idExist) == null )
+        article.setConference( serviceConference.findConferenceById(idConference));
+        if(article.getConference() == null || serviceConference.findConferenceById(idConference) == null )
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("not found conference, is nedeed");

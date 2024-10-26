@@ -13,4 +13,5 @@ public class ArticleOutDTO {
     private String idAuthor;
     private String KeyWords;
     private BasicDate publishDate;
+    public ArticleOutDTO() {}
 }
