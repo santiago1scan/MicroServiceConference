@@ -19,7 +19,7 @@ public class ArticleRepositoryMongo implements IArticleRepository {
     private final MongoRepositoryArticle mongoRepositoryArticle;
     private final MongoTemplate mongoTemplate;
 
-    @Autowired
+
     public ArticleRepositoryMongo(MongoRepositoryArticle mongoRepositoryArticle, MongoTemplate mongoTemplate) {
         this.mongoRepositoryArticle = mongoRepositoryArticle;
         this.mongoTemplate = mongoTemplate;

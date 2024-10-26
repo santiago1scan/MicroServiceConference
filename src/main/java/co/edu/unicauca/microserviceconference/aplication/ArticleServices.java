@@ -25,13 +25,13 @@ public class ArticleServices{
     private final IConferencesRepository conferencesRepository;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
 
-    public ArticleServices(IArticleRepository repository, ModelMapper modelMapper, IConferencesRepository conferencesRepository, IAuthorRepository authorRepository ) {
+    public ArticleServices(IArticleRepository repository, IConferencesRepository conferencesRepository, IAuthorRepository authorRepository ) {
         this.repository = repository;
         this.conferencesRepository = conferencesRepository;
         this.authorRepository = authorRepository;
-        this.modelMapper = modelMapper;
+
     }
 
     /**
@@ -83,7 +83,7 @@ public class ArticleServices{
     }
 
     /**
-     * @brief find the article by id
+     * find the article by id
      * @param id id of ARTICLE
      * @return ArticleDTO find
      */

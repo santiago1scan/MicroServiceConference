@@ -50,13 +50,13 @@ public class AuthorRepositoryMongo implements IAuthorRepository {
     }
 
     @Override
-    public Author deleteAuthor(Author author) {
-        Optional<AuthorDocument> authorDocumentOptional = mongoRepositoryAuthor.findById(author.getId());
+    public Author deleteAuthor(String id) {
+        Optional<AuthorDocument> authorDocumentOptional = mongoRepositoryAuthor.findById(id);
 
         if (authorDocumentOptional.isEmpty()) {
             return null;
         }
-        mongoRepositoryAuthor.deleteById(author.getId());
+        mongoRepositoryAuthor.deleteById(id);
 
         return AuthorMapper.toAuthor(authorDocumentOptional.get());
     }
