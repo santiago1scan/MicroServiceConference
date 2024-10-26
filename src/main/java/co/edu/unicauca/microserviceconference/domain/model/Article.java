@@ -26,7 +26,9 @@ public class Article {
     public void setConference(Conference conference) {
         this.conference = conference;
     }
+    public Article(){
 
+    }
     public Article(String id, String name, String idAuthor, String keywords, BasicDate publicationDate) {
         this.name = name;
         this.idAuthor = idAuthor;
