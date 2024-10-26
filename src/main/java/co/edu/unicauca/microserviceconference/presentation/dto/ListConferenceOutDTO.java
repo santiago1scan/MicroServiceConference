@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ListConferenceOutDTO {
     private int  totalConference;
-    private List<ConferenceOutDTO> conferences;
+    private List<ConferenceInDTO> conferences;
     public ListConferenceOutDTO() {}
 }
