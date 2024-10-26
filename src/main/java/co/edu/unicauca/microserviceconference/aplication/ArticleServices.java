@@ -51,7 +51,7 @@ public class ArticleServices{
      * @param idConference String id confernce to find whit the artilces
      * @return list of Auhtors register whit ARTICLESDTOS (ARRAY), CANTARTICELS, CONFERECNEOUTDTO
      */
-    public ListArticleConferenceDTO  findArticleByArticles(String idConference){
+    public ListArticleConferenceDTO  findArticleByConference(String idConference){
         if(idConference == null)
             return null;
         List<ArticleDTRO> articles = repository.findAllArticles();
