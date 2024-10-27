@@ -3,7 +3,9 @@ package co.edu.unicauca.microserviceconference.aplication;
 import co.edu.unicauca.microserviceconference.domain.interfaces.IArticleRepository;
 import co.edu.unicauca.microserviceconference.domain.interfaces.IAuthorRepository;
 import co.edu.unicauca.microserviceconference.domain.interfaces.IConferencesRepository;
+import co.edu.unicauca.microserviceconference.domain.interfaces.IOrganizerRepository;
 import co.edu.unicauca.microserviceconference.domain.model.Article;
+import co.edu.unicauca.microserviceconference.domain.model.Author;
 import co.edu.unicauca.microserviceconference.infrastructure.dtro.ArticleDTRO;
 import co.edu.unicauca.microserviceconference.presentation.dto.*;
 import org.modelmapper.ModelMapper;
@@ -25,15 +27,16 @@ public class ArticleServices{
     private final IAuthorRepository authorRepository;
     @Autowired
     private final IConferencesRepository conferencesRepository;
-
+    @Autowired
+    private final IOrganizerRepository organizerRepository;
     @Autowired
     private ModelMapper modelMapper = new ModelMapper();
 
-    public ArticleServices(IArticleRepository repository, IConferencesRepository conferencesRepository, IAuthorRepository authorRepository ) {
+    public ArticleServices(IArticleRepository repository, IConferencesRepository conferencesRepository, IAuthorRepository authorRepository, IOrganizerRepository organizerRepository ) {
         this.repository = repository;
         this.conferencesRepository = conferencesRepository;
         this.authorRepository = authorRepository;
-
+        this.organizerRepository = organizerRepository;
     }
 
     /**
@@ -43,6 +46,10 @@ public class ArticleServices{
      */
     public ArticleDTO save(ArticleDTO articleDTO) {
         Article article= modelMapper.map(articleDTO, Article.class);
+        if(authorRepository.findById(articleDTO.getId()) == null && organizerRepository.findOrganizerById(articleDTO.getId()) == null)
+            return null;
+        if(conferencesRepository.findById(articleDTO.getIdConference()) == null)
+            return null;
         this.repository.saveArticle(article);
         return  modelMapper.map(article, ArticleDTO.class);
     }
@@ -79,7 +86,10 @@ public class ArticleServices{
         ListArticleAuthorDTO listArticleAuthorDTO = new ListArticleAuthorDTO();
         listArticleAuthorDTO.setTotalArticles(articles.size());
         listArticleAuthorDTO.setArticles(articleDTOs);
-        String nombreAutor = authorRepository.findById(idAuthor).getName() ;
+        Author autor = authorRepository.findById(idAuthor);
+        if(autor == null)
+            return null;
+        String nombreAutor = autor.getName();
         listArticleAuthorDTO.setAuthor(nombreAutor); //Fallo de capa?
         return listArticleAuthorDTO;
     }

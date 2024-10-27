@@ -1,12 +1,12 @@
 package co.edu.unicauca.microserviceconference.aplication;
 
+import co.edu.unicauca.microserviceconference.domain.interfaces.IAuthorRepository;
 import co.edu.unicauca.microserviceconference.domain.interfaces.IConferencesRepository;
+import co.edu.unicauca.microserviceconference.domain.interfaces.IOrganizerRepository;
 import co.edu.unicauca.microserviceconference.domain.model.Conference;
+import co.edu.unicauca.microserviceconference.domain.model.Organizer;
 import co.edu.unicauca.microserviceconference.infrastructure.dtro.ConferenceDTRO;
-import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceInDTO;
-import co.edu.unicauca.microserviceconference.presentation.dto.ConferenceOutDTO;
-import co.edu.unicauca.microserviceconference.presentation.dto.ListConferenceOrganizerOut;
-import co.edu.unicauca.microserviceconference.presentation.dto.ListConferenceOutDTO;
+import co.edu.unicauca.microserviceconference.presentation.dto.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,13 @@ public class ConferenceService {
     private IConferencesRepository repository;
     @Autowired
     private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private IOrganizerRepository organizerRepository;
 
     @Autowired
-    public ConferenceService(IConferencesRepository conferencesRepository) {
+    public ConferenceService(IConferencesRepository conferencesRepository, IOrganizerRepository organizerRepository) {
         this.repository= conferencesRepository;
+        this.organizerRepository = organizerRepository;
     }
 
     /**
@@ -34,10 +37,15 @@ public class ConferenceService {
      */
     public ConferenceOutDTO save(ConferenceInDTO conferenceToSave){
         Conference conferenceEntity = this.modelMapper.map(conferenceToSave, Conference.class);
+        Organizer organizer =  organizerRepository.findOrganizerById(conferenceEntity.getId());
+        if( organizer == null)
+            return null;
         ConferenceDTRO conferenceSave =this.repository.saveConference(conferenceEntity);
+
         if( conferenceSave != null){
-            //TODO notify the broker
-            return this.modelMapper.map(conferenceSave, ConferenceOutDTO.class);
+            ConferenceOutDTO conferenceOutDTO = this.modelMapper.map(conferenceSave, ConferenceOutDTO.class);
+            conferenceOutDTO.setOrganizer(organizer);
+            return conferenceOutDTO;
         }else {
             return null;
         }
@@ -82,6 +90,9 @@ public class ConferenceService {
      * @Brief funciton return a dto for controller list for organizer
      */
     public ListConferenceOrganizerOut findAllConfereceByIDOrganizer(String idOrganizer){
+        Organizer organizer = organizerRepository.findOrganizerById(idOrganizer);
+        if(organizer == null)
+            return null;
         ArrayList<ConferenceDTRO> listAllConference = (ArrayList<ConferenceDTRO>) this.repository.findByOrganizer(idOrganizer);
         ListConferenceOrganizerOut conferencesOutDTO = new ListConferenceOrganizerOut();
         conferencesOutDTO.setConferences(this.modelMapper.map(listAllConference, new TypeToken<ArrayList<ConferenceOutDTO>>() {}.getType() )) ;

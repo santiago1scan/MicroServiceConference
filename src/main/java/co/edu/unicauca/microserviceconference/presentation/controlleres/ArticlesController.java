@@ -5,6 +5,8 @@ import co.edu.unicauca.microserviceconference.aplication.ConferenceService;
 import co.edu.unicauca.microserviceconference.presentation.dto.ArticleDTO;
 
 import co.edu.unicauca.microserviceconference.presentation.dto.ArticleOutDTO;
+import co.edu.unicauca.microserviceconference.presentation.dto.AuthorDTO;
+import co.edu.unicauca.microserviceconference.presentation.dto.ListArticleAuthorDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +47,7 @@ public class ArticlesController {
         if(articleToSave == null)
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Sorry, some issue creating user");
+                    .body("Sorry, some issue creating user, verify id to author and conference");
         return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(articleToSave, ArticleOutDTO.class));
     }
 
@@ -66,7 +68,12 @@ public class ArticlesController {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Sorry, the id is not found");
-        return  ResponseEntity.status(HttpStatus.OK).body(serviceArticles.findArticleByAuthor(id));
+        ListArticleAuthorDTO author = serviceArticles.findArticleByAuthor(id);
+        if(author == null)
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("not found the author");
+        return  ResponseEntity.status(HttpStatus.OK).body(author);
     }
     @PutMapping("{idArticle}")
     public ResponseEntity<Object> updateArticle(@RequestBody ArticleDTO article, @PathVariable String idArticle) {

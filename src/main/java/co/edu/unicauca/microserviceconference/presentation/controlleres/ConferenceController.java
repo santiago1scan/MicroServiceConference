@@ -43,13 +43,17 @@ public class ConferenceController {
         ConferenceOutDTO   createdUser = conferenceService.save(conferenceDTO);
         if(createdUser == null)
             return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Sorry, some issue creating user");
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Sorry, some issue creating Conference, verify of id organizer");
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
     @GetMapping("/conferences")
     public ResponseEntity<Object> getConference() {
         ListConferenceOutDTO conferenceDTO = conferenceService.findAllConferencesActive();
+        if(conferenceDTO == null)
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Sorry, some issue creating Conference, verify of id organizer");
         return ResponseEntity.status(HttpStatus.OK).body(conferenceDTO);
     }
     @GetMapping("/conferences/organizer/{id}")
