@@ -15,6 +15,7 @@ public interface IConferencesRepository {
     ConferenceDTRO updateConference(Conference conference, String id);
     ConferenceDTRO deleteById(String id);
     List<ConferenceDTRO> findAllActive();
+    List<ConferenceDTRO> findByOrganizer(String idOrganizer);
     List<ConferenceDTRO> findAll();
 
 }

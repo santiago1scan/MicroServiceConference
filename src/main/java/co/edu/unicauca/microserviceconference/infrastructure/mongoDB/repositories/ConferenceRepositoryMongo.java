@@ -9,6 +9,7 @@ import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mappers.Con
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mogoRepositories.MongoRepositoriyConference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -126,6 +127,28 @@ public class ConferenceRepositoryMongo implements IConferencesRepository {
 
         return conferenceDTROs;
     }
+    /**
+     * Devuelve todas las conferencias organizadas por un organizador específico.
+     *
+     * @param idOrganizer El ID del organizador de las conferencias a buscar.
+     * @return Una lista de DTOs de las conferencias organizadas por el organizador.
+     */
+    @Override
+    public List<ConferenceDTRO> findByOrganizer(String idOrganizer) {
+        // Crea una consulta para buscar conferencias con el idOrganizer dado
+        Query query = new Query();
+        query.addCriteria(where("idOrganizer").is(idOrganizer));
+
+        // Ejecuta la consulta y obtiene los documentos de conferencias
+        List<ConferenceDocument> conferenceDocuments = mongoTemplate.find(query, ConferenceDocument.class);
+
+        // Convierte los documentos en una lista de DTOs y los devuelve
+        return conferenceDocuments.stream()
+                .map(ConferenceMapper::toConferenceDTRO)
+                .collect(Collectors.toList());
+    }
+
+
 
     /**
      *
