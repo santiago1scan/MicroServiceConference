@@ -21,7 +21,9 @@ public class ArticleServices{
 
     @Autowired
     private final IArticleRepository repository;
+    @Autowired
     private final IAuthorRepository authorRepository;
+    @Autowired
     private final IConferencesRepository conferencesRepository;
 
     @Autowired
@@ -72,12 +74,13 @@ public class ArticleServices{
         if(idAuthor == null){
             return null;
         }
-        List<ArticleDTRO> articles = repository.findAllArticles();
+        List<ArticleDTRO> articles = repository.findAllArticlesByAuthor(idAuthor);
         ArrayList<ArticleDTO> articleDTOs = modelMapper.map(articles, new TypeToken<List<ArticleDTO>>(){}.getType());
         ListArticleAuthorDTO listArticleAuthorDTO = new ListArticleAuthorDTO();
         listArticleAuthorDTO.setTotalArticles(articles.size());
         listArticleAuthorDTO.setArticles(articleDTOs);
-        listArticleAuthorDTO.setAuthor(authorRepository.findById(idAuthor).getName()); //Fallo de capa?
+        String nombreAutor = authorRepository.findById(idAuthor).getName() ;
+        listArticleAuthorDTO.setAuthor(nombreAutor); //Fallo de capa?
         return listArticleAuthorDTO;
     }
 

@@ -24,4 +24,3 @@ public class RabbitMQListenerConfig {
         return factory;
     }
 }
-

@@ -6,13 +6,15 @@ import co.edu.unicauca.microserviceconference.infrastructure.dtro.ArticleDTRO;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.documents.ArticleDocument;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mappers.ArticleMapper;
 import co.edu.unicauca.microserviceconference.infrastructure.mongoDB.mogoRepositories.MongoRepositoryArticle;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.amqp.core.Queue;
 import java.util.List;
 import java.util.Optional;
+
 
 @Repository
 public class ArticleRepositoryMongo implements IArticleRepository {
@@ -25,6 +27,7 @@ public class ArticleRepositoryMongo implements IArticleRepository {
         this.mongoRepositoryArticle = mongoRepositoryArticle;
         this.mongoTemplate = mongoTemplate;
     }
+
 
     /**
      * Guarda un nuevo artículo en la base de datos.

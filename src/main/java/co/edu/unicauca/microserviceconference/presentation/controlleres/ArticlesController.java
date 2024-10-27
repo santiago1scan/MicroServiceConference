@@ -35,15 +35,11 @@ public class ArticlesController {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("Keywords is needed");
-        article.setConference( serviceConference.findConferenceById(idConference));
-        if(article.getConference() == null || serviceConference.findConferenceById(idConference) == null )
+        article.setIdConference(idConference);
+        if(article.getIdConference() == null || serviceConference.findConferenceById(idConference) == null )
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body("not found conference, is nedeed");
-        if(serviceArticles.exist("")!= null)  //CHECAR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body("The article already exists in this conference");
 
         ArticleDTO articleToSave = serviceArticles.save(article);
         if(articleToSave == null)

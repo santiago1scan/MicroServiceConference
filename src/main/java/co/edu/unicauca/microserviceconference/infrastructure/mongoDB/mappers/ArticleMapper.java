@@ -22,7 +22,8 @@ public class ArticleMapper {
                 article.getName(),
                 article.getIdAuthor(),
                 article.getKeyWords(),
-                article.getPublishDate()
+                article.getPublishDate(),
+                article.getConference().getId()
         );
     }
 

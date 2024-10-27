@@ -18,5 +18,6 @@ public class ArticleDocument {
     private String idAuthor;
     private String keywords;
     private BasicDate publicationDate;
+    private String idConference;
 
 }

@@ -82,7 +82,7 @@ public class ConferenceService {
      * @Brief funciton return a dto for controller list for organizer
      */
     public ListConferenceOrganizerOut findAllConfereceByIDOrganizer(String idOrganizer){
-        ArrayList<ConferenceDTRO> listAllConference = (ArrayList<ConferenceDTRO>) this.repository.findAll();
+        ArrayList<ConferenceDTRO> listAllConference = (ArrayList<ConferenceDTRO>) this.repository.findByOrganizer(idOrganizer);
         ListConferenceOrganizerOut conferencesOutDTO = new ListConferenceOrganizerOut();
         conferencesOutDTO.setConferences(this.modelMapper.map(listAllConference, new TypeToken<ArrayList<ConferenceOutDTO>>() {}.getType() )) ;
         conferencesOutDTO.setIdOrganizer(idOrganizer);

@@ -23,8 +23,6 @@ public class OrganizerRepositoryMongo implements IOrganizerRepository {
 
     @Override
     public Organizer saveOrganizer(Organizer organizer) {
-        organizer.setId(null);
-
         OrganizerDocument organizerDocument = OrganizerMapper.toOrganizerDocument(organizer);
 
         OrganizerDocument savedOrganizer = mongoTemplate.save(organizerDocument);

@@ -22,6 +22,11 @@ public class AuthorRepositoryMongo implements IAuthorRepository {
         this.mongoTemplate = mongoTemplate;
     }
 
+    /**
+     *
+     * @param id
+     * @return Author entity
+     */
     @Override
     public Author findById(String id) {
         Optional<AuthorDocument> authorDocumentOptional = mongoRepositoryAuthor.findById(id);
@@ -40,8 +45,6 @@ public class AuthorRepositoryMongo implements IAuthorRepository {
 
     @Override
     public Author saveAuthor(Author author) {
-        author.setId(null);
-
         AuthorDocument authorDocument = AuthorMapper.toAuthorDocument(author);
 
         AuthorDocument savedAuthor = mongoTemplate.save(authorDocument);
