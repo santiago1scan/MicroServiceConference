@@ -17,5 +17,4 @@ public interface IConferencesRepository {
     List<ConferenceDTRO> findAllActive();
     List<ConferenceDTRO> findByOrganizer(String idOrganizer);
     List<ConferenceDTRO> findAll();
-
 }
