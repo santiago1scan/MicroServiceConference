@@ -25,10 +25,7 @@ public class ArticlesController {
 
     @PostMapping("conference/{idConference}")
     public ResponseEntity<Object> createArticleInConference(@RequestBody ArticleDTO article, @PathVariable String idConference) {
-        if(idConference == null || idConference.isEmpty())
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body("id conferency  is nesesary");
+
         if(article.getName().isEmpty())
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
