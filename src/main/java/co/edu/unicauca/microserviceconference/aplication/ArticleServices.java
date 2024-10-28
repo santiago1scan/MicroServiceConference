@@ -46,7 +46,7 @@ public class ArticleServices{
      */
     public ArticleDTO save(ArticleDTO articleDTO) {
         Article article= modelMapper.map(articleDTO, Article.class);
-        if(authorRepository.findById(articleDTO.getId()) == null && organizerRepository.findOrganizerById(articleDTO.getId()) == null)
+        if(authorRepository.findById(articleDTO.getIdAuthor()) == null && organizerRepository.findOrganizerById(articleDTO.getIdAuthor()) == null)
             return null;
         if(conferencesRepository.findById(articleDTO.getIdConference()) == null)
             return null;
